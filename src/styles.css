@@ -1,0 +1,372 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  --bg: #07111f;
+  --bg-elevated: rgba(14, 24, 39, 0.82);
+  --bg-soft: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.1);
+  --text: #ecf1f9;
+  --muted: #9ca9bd;
+  --accent: #72d6ff;
+  --accent-strong: #b8f0ff;
+  --good: #7ee0a0;
+  --warn: #ffd166;
+  --shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(73, 115, 255, 0.2), transparent 35%),
+    radial-gradient(circle at right top, rgba(0, 199, 255, 0.12), transparent 28%),
+    linear-gradient(180deg, #06111d 0%, #0a1424 100%);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+.app-shell {
+  width: min(1440px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0 40px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 0.9fr);
+  gap: 24px;
+  align-items: stretch;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.76rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.8rem);
+  line-height: 0.95;
+  max-width: 12ch;
+}
+
+.lede {
+  max-width: 68ch;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.65;
+}
+
+.hero-meta {
+  display: grid;
+  gap: 14px;
+  align-content: end;
+}
+
+.hero-meta > div,
+.metric-card,
+.panel {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.hero-meta > div {
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+}
+
+.hero-meta span,
+.metric-card span,
+.panel-heading p,
+.filter-note p,
+.card-footer,
+.detail-summary {
+  color: var(--muted);
+}
+
+.hero-meta strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.metric-card {
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 2rem;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1.25fr) 360px;
+  gap: 16px;
+  align-items: start;
+}
+
+.panel {
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.panel-heading h2,
+.detail-card h3,
+.signal-card h3 {
+  margin: 0;
+}
+
+.panel-heading p {
+  margin: 8px 0 0;
+  line-height: 1.6;
+}
+
+.controls {
+  position: sticky;
+  top: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.field span,
+dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+select {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(8, 16, 28, 0.95);
+  color: var(--text);
+  padding: 12px 14px;
+}
+
+.filter-note {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 16px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+
+.filter-note span {
+  font-weight: 600;
+}
+
+.cards-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.signal-card {
+  text-align: left;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.signal-card:hover,
+.signal-card:focus-visible,
+.signal-card.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(114, 214, 255, 0.5);
+  background: rgba(114, 214, 255, 0.08);
+  outline: none;
+}
+
+.card-topline,
+.card-footer,
+.detail-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-topline {
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.chip,
+.status {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  line-height: 1;
+}
+
+.chip {
+  background: rgba(114, 214, 255, 0.12);
+  color: var(--accent-strong);
+}
+
+.status {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.status-verified {
+  color: var(--good);
+}
+
+.status-emerging {
+  color: var(--warn);
+}
+
+.status-sustained {
+  color: var(--accent);
+}
+
+.signal-card h3 {
+  font-size: 1.04rem;
+  line-height: 1.35;
+}
+
+.signal-card p {
+  margin: 10px 0 16px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.card-footer {
+  font-size: 0.9rem;
+}
+
+.detail-card {
+  display: grid;
+  gap: 16px;
+}
+
+.detail-summary {
+  line-height: 1.65;
+}
+
+.detail-grid {
+  flex-wrap: wrap;
+}
+
+.detail-grid > div {
+  flex: 1 1 140px;
+  padding: 12px;
+  border-radius: 14px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+}
+
+dt {
+  margin-bottom: 8px;
+}
+
+dd {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.detail-block {
+  padding-top: 4px;
+}
+
+.detail-block h4 {
+  margin: 0 0 8px;
+  font-size: 0.96rem;
+}
+
+.detail-block p,
+.empty-state {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.empty-state {
+  padding: 12px 0;
+}
+
+@media (max-width: 1180px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .controls {
+    position: static;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .app-shell {
+    width: min(100vw - 20px, 1440px);
+    padding: 20px 0 28px;
+  }
+}
+
+@media (max-width: 640px) {
+  h1 {
+    max-width: none;
+    font-size: 2.3rem;
+  }
+
+  .panel,
+  .hero-meta > div,
+  .metric-card {
+    border-radius: 16px;
+  }
+
+  .card-topline,
+  .card-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
