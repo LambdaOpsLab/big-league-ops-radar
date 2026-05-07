@@ -212,6 +212,45 @@ select {
   line-height: 1.6;
 }
 
+.mode-toggle {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.mode-toggle button {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  padding: 11px 12px;
+  cursor: pointer;
+}
+
+.mode-toggle button.is-active {
+  background: rgba(114, 214, 255, 0.12);
+  border-color: rgba(114, 214, 255, 0.4);
+}
+
+.mode-note {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(126, 224, 160, 0.06);
+  border: 1px solid rgba(126, 224, 160, 0.16);
+}
+
+.mode-note strong {
+  display: block;
+}
+
+.mode-note p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .cards-grid {
   display: grid;
   gap: 12px;
@@ -317,6 +356,13 @@ select {
   margin: 10px 0 16px;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.signal-meta-line {
+  margin-bottom: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .card-footer {
