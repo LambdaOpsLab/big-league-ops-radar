@@ -9,6 +9,7 @@ The project now also includes a Profile A source registry that defines trusted s
 It now also includes real signals, evidence/source verification, and a decision trail so the portfolio can show how review and traceability work together.
 CP14 adds a real-use mode with more manually reviewed signals, pattern observations, operational takeaways, and project-candidate tracking.
 CP15 adds a weekly operational review template for recurring strategic observation.
+CP16 adds strategic pattern memory to capture repeated reviewed themes over time.
 
 ## Project purpose
 

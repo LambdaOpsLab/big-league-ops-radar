@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { signals as demoSignals } from './data/signals';
 import { realSignals } from './data/realSignals';
+import { strategicPatterns } from './data/strategicPatterns';
 import type { Action, Domain, Signal } from './types';
 import type { RadarSignal } from './types/radarSignal';
 
@@ -89,29 +90,6 @@ const realStatuses: Array<RadarSignal['status'] | 'All'> = [
   'approved',
   'archived',
   'project-candidate'
-];
-
-const realPatternThemes = [
-  {
-    title: 'AI-first government',
-    detail: 'Government AI is moving toward controlled, procurement-friendly deployments.'
-  },
-  {
-    title: 'Sovereign compute',
-    detail: 'Cloud, chips, and local control are converging into sovereign infrastructure.'
-  },
-  {
-    title: 'Operational governance',
-    detail: 'Review status, source verification, and decision trails are part of the product model.'
-  },
-  {
-    title: 'Infrastructure race',
-    detail: 'Compute commitments are being made earlier and at larger scale.'
-  },
-  {
-    title: 'Human-in-the-loop systems',
-    detail: 'Manual review is still needed before promotion, approval, or project creation.'
-  }
 ];
 
 const operationalTakeaways = [
@@ -224,12 +202,14 @@ export default function App() {
   const [action, setAction] = useState<FilterValue>('All');
   const [status, setStatus] = useState<FilterValue>('All');
   const [selectedId, setSelectedId] = useState(realSignals[0]?.id ?? demoSignals[0]?.id ?? '');
+  const [selectedPatternId, setSelectedPatternId] = useState(strategicPatterns[0]?.id ?? '');
 
   useEffect(() => {
     setDomain('All');
     setAction('All');
     setStatus('All');
     setSelectedId((mode === 'demo' ? demoSignals[0]?.id : realSignals[0]?.id) ?? '');
+    setSelectedPatternId(strategicPatterns[0]?.id ?? '');
   }, [mode]);
 
   const availableSignals = useMemo(() => resolveSignalSet(mode), [mode]);
@@ -263,6 +243,8 @@ export default function App() {
   const projectCandidateSignals = availableSignals.filter(
     (signal) => signal.status === 'project-candidate'
   );
+  const selectedPattern =
+    strategicPatterns.find((pattern) => pattern.id === selectedPatternId) ?? strategicPatterns[0] ?? null;
 
   return (
     <main className={`app-shell mode-${mode}`}>
@@ -368,19 +350,39 @@ export default function App() {
           ) : null}
 
           {isRealMode ? (
-            <section className="sidebar-section" aria-label="Pattern observed">
+            <section className="sidebar-section" aria-label="Strategic patterns">
               <div className="section-heading">
-                <h3>Pattern Observed</h3>
-                <p>Repeated themes across the curated real-signal set.</p>
+                <h3>Strategic Patterns</h3>
+                <p>Patterns emerge through repeated reviewed signals over time.</p>
               </div>
               <div className="pattern-list">
-                {realPatternThemes.map((pattern) => (
-                  <div className="pattern-item" key={pattern.title}>
+                {strategicPatterns.map((pattern) => (
+                  <button
+                    key={pattern.id}
+                    type="button"
+                    className={`pattern-item ${selectedPattern?.id === pattern.id ? 'is-active' : ''}`}
+                    onClick={() => setSelectedPatternId(pattern.id)}
+                  >
                     <strong>{pattern.title}</strong>
-                    <span>{pattern.detail}</span>
-                  </div>
+                    <span>{pattern.description}</span>
+                    <em>{pattern.confidence} confidence · {pattern.relatedSignalIds.length} signals</em>
+                  </button>
                 ))}
               </div>
+              {selectedPattern ? (
+                <div className="pattern-detail">
+                  <h4>Why it matters</h4>
+                  <p>{selectedPattern.description}</p>
+                  <div className="pattern-impact">
+                    <span>Operational impact</span>
+                    <strong>{selectedPattern.operationalImpact}</strong>
+                  </div>
+                  <div className="pattern-signals">
+                    <span>Related signals</span>
+                    <strong>{selectedPattern.relatedSignalIds.join(' • ')}</strong>
+                  </div>
+                </div>
+              ) : null}
             </section>
           ) : null}
 
