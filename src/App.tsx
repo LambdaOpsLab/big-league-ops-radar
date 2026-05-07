@@ -31,6 +31,10 @@ function domainCount(items: Signal[], domain: Domain) {
   return items.filter((item) => item.domain === domain).length;
 }
 
+function formatReviewState(state: Signal['reviewState']) {
+  return state.replace('-', ' ');
+}
+
 export default function App() {
   const [domain, setDomain] = useState<Domain | 'All'>('All');
   const [action, setAction] = useState<Action | 'All'>('All');
@@ -119,6 +123,14 @@ export default function App() {
             <span>{filteredSignals.length} matching signals</span>
             <p>All entries are demo data with no live ingestion.</p>
           </div>
+
+          <section className="review-note" aria-label="Human-in-the-loop review">
+            <h3>Human-in-the-loop review</h3>
+            <p>
+              Signals are not automatically trusted. They are reviewed before being approved,
+              archived, or promoted as project candidates.
+            </p>
+          </section>
         </aside>
 
         <section className="signal-list panel" aria-label="Signal cards">
@@ -138,10 +150,15 @@ export default function App() {
                 >
                   <div className="card-topline">
                     <span className="chip">{signal.domain}</span>
-                    <span className={`status status-${signal.status.toLowerCase()}`}>{signal.status}</span>
+                    <span className={`status status-review status-${signal.reviewState}`}>
+                      Review: {formatReviewState(signal.reviewState)}
+                    </span>
                   </div>
                   <h3>{signal.headline}</h3>
                   <p>{signal.summary}</p>
+                  <div className="signal-status-line">
+                    <span className={`status status-${signal.status.toLowerCase()}`}>{signal.status}</span>
+                  </div>
                   <div className="card-footer">
                     <span>{signal.action}</span>
                     <span>{signal.horizon}</span>
@@ -164,10 +181,18 @@ export default function App() {
             <article className="detail-card">
               <div className="card-topline">
                 <span className="chip">{selectedSignal.domain}</span>
-                <span className={`status status-${selectedSignal.status.toLowerCase()}`}>{selectedSignal.status}</span>
+                <span className={`status status-review status-${selectedSignal.reviewState}`}>
+                  Review: {formatReviewState(selectedSignal.reviewState)}
+                </span>
               </div>
               <h3>{selectedSignal.headline}</h3>
               <p className="detail-summary">{selectedSignal.summary}</p>
+
+              <div className="signal-status-line">
+                <span className={`status status-${selectedSignal.status.toLowerCase()}`}>
+                  {selectedSignal.status}
+                </span>
+              </div>
 
               <dl className="detail-grid">
                 <div>

@@ -7,6 +7,7 @@ export const signals: Signal[] = [
     domain: 'AI-first operations',
     action: 'Track execution',
     status: 'Verified',
+    reviewState: 'approved',
     confidence: 'High',
     summary:
       'Operational teams are formalizing AI usage through logged workflows, guardrails, and review points.',
@@ -23,6 +24,7 @@ export const signals: Signal[] = [
     domain: 'Agents',
     action: 'Track execution',
     status: 'Verified',
+    reviewState: 'review',
     confidence: 'High',
     summary:
       'Organizations are adopting agent workflows where tasks are bounded, measurable, and tied to human review.',
@@ -39,6 +41,7 @@ export const signals: Signal[] = [
     domain: 'Cloud',
     action: 'Review procurement',
     status: 'Sustained',
+    reviewState: 'approved',
     confidence: 'High',
     summary:
       'Public sector and regulated buyers are asking for stronger region controls, data boundaries, and tenant isolation.',
@@ -55,6 +58,7 @@ export const signals: Signal[] = [
     domain: 'Chips',
     action: 'Assess exposure',
     status: 'Verified',
+    reviewState: 'review',
     confidence: 'High',
     summary:
       'Advanced compute demand continues to pressure supply chains, packaging, and downstream allocation.',
@@ -71,6 +75,7 @@ export const signals: Signal[] = [
     domain: 'Data centers',
     action: 'Prepare briefing',
     status: 'Verified',
+    reviewState: 'approved',
     confidence: 'High',
     summary:
       'Power availability, interconnect timing, and cooling density now shape project sequencing.',
@@ -87,6 +92,7 @@ export const signals: Signal[] = [
     domain: 'Energy',
     action: 'Monitor',
     status: 'Emerging',
+    reviewState: 'candidate',
     confidence: 'Medium',
     summary:
       'Demand growth for AI infrastructure is forcing closer coordination with grid operators and utilities.',
@@ -103,6 +109,7 @@ export const signals: Signal[] = [
     domain: 'Governance',
     action: 'Track execution',
     status: 'Sustained',
+    reviewState: 'project-candidate',
     confidence: 'High',
     summary:
       'Boards and operators are asking for explicit ownership, escalation paths, and model-use controls.',
@@ -119,6 +126,7 @@ export const signals: Signal[] = [
     domain: 'Government',
     action: 'Prepare briefing',
     status: 'Verified',
+    reviewState: 'review',
     confidence: 'High',
     summary:
       'Agencies are testing targeted AI use cases while retaining restrictions on sensitive workflows.',
@@ -135,6 +143,7 @@ export const signals: Signal[] = [
     domain: 'Defense',
     action: 'Assess exposure',
     status: 'Emerging',
+    reviewState: 'candidate',
     confidence: 'Medium',
     summary:
       'Program interest is increasing around decision support and autonomous coordination under supervision.',
@@ -151,6 +160,7 @@ export const signals: Signal[] = [
     domain: 'Operations',
     action: 'Monitor',
     status: 'Sustained',
+    reviewState: 'approved',
     confidence: 'High',
     summary:
       'Automation programs are more valuable when they route exceptions clearly and reduce review burden.',
@@ -167,6 +177,7 @@ export const signals: Signal[] = [
     domain: 'Regulation',
     action: 'Review procurement',
     status: 'Verified',
+    reviewState: 'archived',
     confidence: 'High',
     summary:
       'Buyers face a growing requirement to document model use, decision boundaries, and review responsibilities.',

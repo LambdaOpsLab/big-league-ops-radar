@@ -193,6 +193,25 @@ select {
   font-weight: 600;
 }
 
+.review-note {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(114, 214, 255, 0.06);
+  border: 1px solid rgba(114, 214, 255, 0.18);
+}
+
+.review-note h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.review-note p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .cards-grid {
   display: grid;
   gap: 12px;
@@ -263,6 +282,30 @@ select {
 
 .status-sustained {
   color: var(--accent);
+}
+
+.status-candidate {
+  color: var(--warn);
+}
+
+.status-review {
+  color: var(--accent-strong);
+}
+
+.status-approved {
+  color: var(--good);
+}
+
+.status-archived {
+  color: var(--muted);
+}
+
+.status-project-candidate {
+  color: #d7b9ff;
+}
+
+.signal-status-line {
+  margin: 0 0 12px;
 }
 
 .signal-card h3 {

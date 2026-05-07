@@ -1,3 +1,5 @@
+import type { RadarSignalStatus } from './types/radarSignal';
+
 export type Domain =
   | 'AI-first operations'
   | 'Government'
@@ -26,6 +28,7 @@ export interface Signal {
   domain: Domain;
   action: Action;
   status: SignalStatus;
+  reviewState: RadarSignalStatus;
   confidence: 'High' | 'Medium';
   summary: string;
   implication: string;
