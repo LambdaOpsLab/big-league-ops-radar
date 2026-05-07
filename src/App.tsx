@@ -21,6 +21,7 @@ interface DisplaySignal {
   sourceUrl?: string;
   publishedAt?: string;
   confidence: string;
+  sourceCategory?: 'primary' | 'secondary';
   footerLabel: string;
   detailBlocks: Array<{ heading: string; body: string }>;
   tags?: string[];
@@ -100,6 +101,7 @@ function normalizeDemoSignal(signal: Signal): DisplaySignal {
     source: 'Profile A demo dataset',
     confidence: signal.confidence,
     publishedAt: signal.horizon,
+    sourceCategory: 'secondary',
     footerLabel: signal.horizon,
     detailBlocks: [
       { heading: 'Operational implication', body: signal.implication },
@@ -123,6 +125,7 @@ function normalizeRealSignal(signal: RadarSignal): DisplaySignal {
     sourceUrl: signal.sourceUrl,
     publishedAt: signal.publishedAt,
     confidence: signal.confidence,
+    sourceCategory: signal.sourceType === 'official' || signal.sourceType === 'regulatory' ? 'primary' : 'secondary',
     footerLabel: signal.publishedAt,
     detailBlocks: [
       { heading: 'Why it matters', body: signal.whyItMatters },
@@ -143,6 +146,14 @@ function formatSourceMeta(signal: DisplaySignal) {
   }
 
   return `${signal.source} · ${signal.sourceType} · ${signal.publishedAt}`;
+}
+
+function formatSourceTypeLabel(value?: string) {
+  if (!value) {
+    return 'Source';
+  }
+
+  return value.replace('-', ' ');
 }
 
 function resolveSignalSet(mode: SignalMode) {
@@ -298,12 +309,18 @@ export default function App() {
             </button>
           </div>
 
-          <div className="mode-note">
+              <div className="mode-note">
             <strong>Real signals are manually reviewed and curated.</strong>
             <p>
               The real set uses public sources, human interpretation, and the RadarSignal model.
             </p>
           </div>
+
+          {isRealMode ? (
+            <div className="verification-note">
+              Signals are manually reviewed and linked to public sources.
+            </div>
+          ) : null}
 
           <label className="field">
             <span>Domain</span>
@@ -380,7 +397,11 @@ export default function App() {
                   <h3>{signal.title}</h3>
                   <p>{signal.summary}</p>
                   <div className="signal-meta-line">
-                    <span>{mode === 'demo' ? signal.status : formatSourceMeta(signal)}</span>
+                    <span>
+                      {mode === 'demo'
+                        ? signal.status
+                        : `${signal.source} · ${formatSourceTypeLabel(signal.sourceType)}`}
+                    </span>
                   </div>
                   <div className="card-footer">
                     <span>{signal.action}</span>
@@ -429,6 +450,14 @@ export default function App() {
                   <dd>{selectedSignal.source}</dd>
                 </div>
                 <div>
+                  <dt>Source type</dt>
+                  <dd>{formatSourceTypeLabel(selectedSignal.sourceType)}</dd>
+                </div>
+                <div>
+                  <dt>Source category</dt>
+                  <dd>{selectedSignal.sourceCategory === 'primary' ? 'Primary / official' : 'Secondary / media analysis'}</dd>
+                </div>
+                <div>
                   <dt>Status</dt>
                   <dd>{selectedSignal.status}</dd>
                 </div>
@@ -447,6 +476,16 @@ export default function App() {
                   </div>
                 ) : null}
               </dl>
+
+              {selectedSignal.sourceUrl ? (
+                <div className="evidence-panel">
+                  <h4>Evidence</h4>
+                  <p>The radar prioritizes verifiable signals over speed.</p>
+                  <a className="source-button" href={selectedSignal.sourceUrl} target="_blank" rel="noreferrer">
+                    Open source
+                  </a>
+                </div>
+              ) : null}
 
               {selectedSignal.detailBlocks.map((block) => (
                 <div className="detail-block" key={block.heading}>

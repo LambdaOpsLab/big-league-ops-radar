@@ -286,6 +286,16 @@ select {
   line-height: 1.6;
 }
 
+.verification-note {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 209, 102, 0.08);
+  border: 1px solid rgba(255, 209, 102, 0.18);
+  color: var(--text);
+  font-size: 0.92rem;
+}
+
 .mode-demo .panel,
 .mode-demo .hero-meta > div,
 .mode-demo .metric-card {
@@ -421,6 +431,12 @@ select {
   line-height: 1.5;
 }
 
+.signal-meta-line span {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .card-footer {
   font-size: 0.9rem;
 }
@@ -459,6 +475,42 @@ dd {
   padding-top: 4px;
 }
 
+.evidence-panel {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+}
+
+.evidence-panel h4 {
+  margin: 0 0 8px;
+  font-size: 0.96rem;
+}
+
+.evidence-panel p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.source-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(114, 214, 255, 0.3);
+  background: rgba(114, 214, 255, 0.1);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.source-button:hover,
+.source-button:focus-visible {
+  outline: none;
+  background: rgba(114, 214, 255, 0.16);
+}
+
 .detail-block h4 {
   margin: 0 0 8px;
   font-size: 0.96rem;
@@ -469,6 +521,25 @@ dd {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+}
+
+.mode-real .signal-meta-line,
+.mode-real .evidence-panel {
+  color: #dce7dd;
+}
+
+.mode-real .source-button {
+  border-color: rgba(126, 224, 160, 0.28);
+  background: rgba(126, 224, 160, 0.08);
+}
+
+.mode-real .source-button:hover,
+.mode-real .source-button:focus-visible {
+  background: rgba(126, 224, 160, 0.14);
+}
+
+.mode-demo .evidence-panel {
+  border-color: rgba(114, 214, 255, 0.16);
 }
 
 .empty-state {
