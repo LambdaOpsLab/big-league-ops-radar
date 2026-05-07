@@ -120,6 +120,12 @@ const operationalTakeaways = [
   'Keep evidence, review status, and decision trail ahead of project promotion.'
 ];
 
+const weeklyOperationalReview = [
+  { label: 'Review cadence', value: 'Weekly' },
+  { label: 'Signals reviewed', value: 'Curated real set' },
+  { label: 'Focus', value: 'Patterns and decisions' }
+];
+
 function domainCount(items: DisplaySignal[], domain: string) {
   return items.filter((item) => item.domain === domain).length;
 }
@@ -452,12 +458,27 @@ export default function App() {
                       <span>{signal.domain} · {signal.action}</span>
                     </div>
                   ))}
-                </div>
-              ) : (
-                <p className="empty-state">No project-candidate signals in the current view.</p>
+              </div>
+            ) : (
+              <p className="empty-state">No project-candidate signals in the current view.</p>
               )}
             </section>
           ) : null}
+
+          <section className="sidebar-section" aria-label="Weekly operational review">
+            <div className="section-heading">
+              <h3>Weekly Operational Review</h3>
+              <p>The radar is intended for recurring strategic observation, not one-time analysis.</p>
+            </div>
+            <div className="review-grid">
+              {weeklyOperationalReview.map((item) => (
+                <div className="review-item" key={item.label}>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </div>
+              ))}
+            </div>
+          </section>
         </aside>
 
         <section className="signal-list panel" aria-label="Signal cards">

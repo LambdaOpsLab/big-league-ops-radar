@@ -343,6 +343,32 @@ select {
   line-height: 1.55;
 }
 
+.review-grid {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(8, 16, 28, 0.7);
+  border: 1px solid var(--border);
+}
+
+.review-item span {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.review-item strong {
+  font-size: 0.9rem;
+  text-align: right;
+}
+
 .verification-note {
   margin-top: 14px;
   padding: 12px 14px;

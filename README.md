@@ -8,6 +8,7 @@ Big League Ops Radar is a static Vite + React + TypeScript portfolio demo for **
 The project now also includes a Profile A source registry that defines trusted source categories and review rules.
 It now also includes real signals, evidence/source verification, and a decision trail so the portfolio can show how review and traceability work together.
 CP14 adds a real-use mode with more manually reviewed signals, pattern observations, operational takeaways, and project-candidate tracking.
+CP15 adds a weekly operational review template for recurring strategic observation.
 
 ## Project purpose
 
