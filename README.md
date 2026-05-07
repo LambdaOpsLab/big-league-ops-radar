@@ -5,6 +5,8 @@ https://big-league-ops-radar.vercel.app/
 
 Big League Ops Radar is a static Vite + React + TypeScript portfolio demo for **Profile A** only. It presents a strategic intelligence dashboard with a controlled signal model, local filters, and a detail panel designed to communicate product judgment and operational clarity.
 
+The project now also includes a Profile A source registry that defines trusted source categories and review rules.
+
 ## Project purpose
 
 The project demonstrates how to turn complex operating signals into a clear, recruiter-friendly decision interface. It is intentionally scoped as a static front end so the portfolio emphasizes product thinking, system design, and presentation quality rather than backend complexity.
