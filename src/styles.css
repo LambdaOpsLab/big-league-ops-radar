@@ -511,6 +511,72 @@ dd {
   background: rgba(114, 214, 255, 0.16);
 }
 
+.trail-panel {
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+}
+
+.trail-heading h4 {
+  margin: 0;
+  font-size: 0.96rem;
+}
+
+.trail-heading p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.trail-list {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.trail-list li {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(8, 16, 28, 0.7);
+  border: 1px solid var(--border);
+}
+
+.trail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.trail-date {
+  font-size: 0.84rem;
+  color: var(--accent-strong);
+}
+
+.trail-meta {
+  font-size: 0.84rem;
+  color: var(--muted);
+}
+
+.trail-list p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.mode-real .trail-panel {
+  border-color: rgba(126, 224, 160, 0.16);
+}
+
+.mode-real .trail-list li {
+  background: rgba(6, 16, 22, 0.86);
+  border-color: rgba(126, 224, 160, 0.08);
+}
+
 .detail-block h4 {
   margin: 0 0 8px;
   font-size: 0.96rem;

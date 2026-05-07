@@ -25,6 +25,12 @@ interface DisplaySignal {
   footerLabel: string;
   detailBlocks: Array<{ heading: string; body: string }>;
   tags?: string[];
+  decisionTrail?: Array<{
+    date: string;
+    actor: 'human-reviewer' | 'system';
+    action: 'captured' | 'reviewed' | 'approved' | 'archived' | 'promoted-to-project-candidate' | 'updated';
+    note: string;
+  }>;
 }
 
 const demoDomains: Array<Domain | 'All'> = [
@@ -132,7 +138,8 @@ function normalizeRealSignal(signal: RadarSignal): DisplaySignal {
       { heading: 'Pattern', body: signal.pattern },
       { heading: 'Lambda translation', body: signal.lambdaTranslation }
     ],
-    tags: signal.reviewNotes ? [signal.reviewNotes] : undefined
+    tags: signal.reviewNotes ? [signal.reviewNotes] : undefined,
+    decisionTrail: signal.decisionTrail
   };
 }
 
@@ -485,6 +492,28 @@ export default function App() {
                     Open source
                   </a>
                 </div>
+              ) : null}
+
+              {mode === 'real' && selectedSignal.decisionTrail ? (
+                <section className="trail-panel">
+                  <div className="trail-heading">
+                    <h4>Decision Trail</h4>
+                    <p>Decision trails make the radar auditable and prevent unexplained signal promotion.</p>
+                  </div>
+                  <ol className="trail-list">
+                    {selectedSignal.decisionTrail.map((entry) => (
+                      <li key={`${entry.date}-${entry.action}-${entry.note}`}>
+                        <div className="trail-row">
+                          <span className="trail-date">{entry.date}</span>
+                          <span className="trail-meta">
+                            {entry.actor} · {entry.action.replace('-', ' ')}
+                          </span>
+                        </div>
+                        <p>{entry.note}</p>
+                      </li>
+                    ))}
+                  </ol>
+                </section>
               ) : null}
 
               {selectedSignal.detailBlocks.map((block) => (

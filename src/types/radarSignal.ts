@@ -41,4 +41,10 @@ export interface RadarSignal {
   publishedAt: string;
   sourceUrl: string;
   reviewNotes?: string;
+  decisionTrail?: {
+    date: string;
+    actor: 'human-reviewer' | 'system';
+    action: 'captured' | 'reviewed' | 'approved' | 'archived' | 'promoted-to-project-candidate' | 'updated';
+    note: string;
+  }[];
 }

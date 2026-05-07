@@ -19,7 +19,27 @@ export const realSignals: RadarSignal[] = [
     confidence: 'high',
     status: 'approved',
     publishedAt: '2025-05-07',
-    sourceUrl: 'https://openai.com/global-affairs/openai-for-countries/'
+    sourceUrl: 'https://openai.com/global-affairs/openai-for-countries/',
+    decisionTrail: [
+      {
+        date: '2025-05-07',
+        actor: 'system',
+        action: 'captured',
+        note: 'Official announcement flagged for sovereign AI and public-sector procurement relevance.'
+      },
+      {
+        date: '2025-05-08',
+        actor: 'human-reviewer',
+        action: 'reviewed',
+        note: 'Reviewed as a credible cross-domain signal spanning cloud, data centers, and government.'
+      },
+      {
+        date: '2025-05-08',
+        actor: 'human-reviewer',
+        action: 'promoted-to-project-candidate',
+        note: 'Promoted because the initiative may affect national AI infrastructure planning.'
+      }
+    ]
   },
   {
     id: 'anthropic-emea-expansion',
@@ -39,7 +59,27 @@ export const realSignals: RadarSignal[] = [
     confidence: 'high',
     status: 'review',
     publishedAt: '2025-04-08',
-    sourceUrl: 'https://www.anthropic.com/news/head-of-EMEA-new-roles'
+    sourceUrl: 'https://www.anthropic.com/news/head-of-EMEA-new-roles',
+    decisionTrail: [
+      {
+        date: '2025-04-08',
+        actor: 'system',
+        action: 'captured',
+        note: 'Company announcement captured for regional enterprise adoption and hiring expansion.'
+      },
+      {
+        date: '2025-04-09',
+        actor: 'human-reviewer',
+        action: 'reviewed',
+        note: 'Reviewed for evidence of sustained Europe demand rather than a single hiring headline.'
+      },
+      {
+        date: '2025-04-09',
+        actor: 'human-reviewer',
+        action: 'approved',
+        note: 'Approved as a credible indicator of European operating footprint expansion.'
+      }
+    ]
   },
   {
     id: 'nvidia-sovereign-ai',
@@ -59,7 +99,27 @@ export const realSignals: RadarSignal[] = [
     confidence: 'high',
     status: 'approved',
     publishedAt: '2024-02-28',
-    sourceUrl: 'https://blogs.nvidia.com/blog/what-is-sovereign-ai/'
+    sourceUrl: 'https://blogs.nvidia.com/blog/what-is-sovereign-ai/',
+    decisionTrail: [
+      {
+        date: '2024-02-28',
+        actor: 'system',
+        action: 'captured',
+        note: 'Captured from NVIDIA policy framing on sovereign AI and AI factory infrastructure.'
+      },
+      {
+        date: '2024-03-01',
+        actor: 'human-reviewer',
+        action: 'reviewed',
+        note: 'Reviewed as a durable infrastructure pattern rather than a single product announcement.'
+      },
+      {
+        date: '2024-03-01',
+        actor: 'human-reviewer',
+        action: 'approved',
+        note: 'Approved because it clarifies how sovereignty links chips, data centers, and energy.'
+      }
+    ]
   },
   {
     id: 'white-house-ai-action-plan',
@@ -79,7 +139,27 @@ export const realSignals: RadarSignal[] = [
     confidence: 'high',
     status: 'approved',
     publishedAt: '2025-07-23',
-    sourceUrl: 'https://www.whitehouse.gov/releases/2025/07/white-house-unveils-americas-ai-action-plan/'
+    sourceUrl: 'https://www.whitehouse.gov/releases/2025/07/white-house-unveils-americas-ai-action-plan/',
+    decisionTrail: [
+      {
+        date: '2025-07-23',
+        actor: 'system',
+        action: 'captured',
+        note: 'Captured from an official policy release covering AI infrastructure and procurement.'
+      },
+      {
+        date: '2025-07-24',
+        actor: 'human-reviewer',
+        action: 'reviewed',
+        note: 'Reviewed for direct relevance to federal procurement and data center buildout.'
+      },
+      {
+        date: '2025-07-24',
+        actor: 'human-reviewer',
+        action: 'approved',
+        note: 'Approved because the plan affects adoption and infrastructure conditions for Profile A.'
+      }
+    ]
   },
   {
     id: 'artificial-analysis-benchmarking',
@@ -100,6 +180,26 @@ export const realSignals: RadarSignal[] = [
     status: 'review',
     publishedAt: '2026-05-04',
     sourceUrl: 'https://artificialanalysis.ai/',
-    reviewNotes: 'Curated from the homepage changelog and Intelligence Index exposure.'
+    reviewNotes: 'Curated from the homepage changelog and Intelligence Index exposure.',
+    decisionTrail: [
+      {
+        date: '2026-05-04',
+        actor: 'system',
+        action: 'captured',
+        note: 'Captured from benchmarking and provider comparison surface area.'
+      },
+      {
+        date: '2026-05-05',
+        actor: 'human-reviewer',
+        action: 'reviewed',
+        note: 'Reviewed as market-intelligence input for model selection and governance.'
+      },
+      {
+        date: '2026-05-05',
+        actor: 'human-reviewer',
+        action: 'approved',
+        note: 'Approved as an external benchmark signal useful for procurement comparisons.'
+      }
+    ]
   }
 ];
