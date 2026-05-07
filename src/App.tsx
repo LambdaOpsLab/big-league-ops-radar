@@ -91,6 +91,35 @@ const realStatuses: Array<RadarSignal['status'] | 'All'> = [
   'project-candidate'
 ];
 
+const realPatternThemes = [
+  {
+    title: 'AI-first government',
+    detail: 'Government AI is moving toward controlled, procurement-friendly deployments.'
+  },
+  {
+    title: 'Sovereign compute',
+    detail: 'Cloud, chips, and local control are converging into sovereign infrastructure.'
+  },
+  {
+    title: 'Operational governance',
+    detail: 'Review status, source verification, and decision trails are part of the product model.'
+  },
+  {
+    title: 'Infrastructure race',
+    detail: 'Compute commitments are being made earlier and at larger scale.'
+  },
+  {
+    title: 'Human-in-the-loop systems',
+    detail: 'Manual review is still needed before promotion, approval, or project creation.'
+  }
+];
+
+const operationalTakeaways = [
+  'Watch government procurement and secure deployment patterns as a single signal family.',
+  'Treat compute capacity, cloud topology, and chips supply as one planning constraint.',
+  'Keep evidence, review status, and decision trail ahead of project promotion.'
+];
+
 function domainCount(items: DisplaySignal[], domain: string) {
   return items.filter((item) => item.domain === domain).length;
 }
@@ -225,6 +254,9 @@ export default function App() {
   const realProjectCandidateCount = realSignals.filter(
     (signal) => signal.status === 'project-candidate'
   ).length;
+  const projectCandidateSignals = availableSignals.filter(
+    (signal) => signal.status === 'project-candidate'
+  );
 
   return (
     <main className={`app-shell mode-${mode}`}>
@@ -329,6 +361,23 @@ export default function App() {
             </div>
           ) : null}
 
+          {isRealMode ? (
+            <section className="sidebar-section" aria-label="Pattern observed">
+              <div className="section-heading">
+                <h3>Pattern Observed</h3>
+                <p>Repeated themes across the curated real-signal set.</p>
+              </div>
+              <div className="pattern-list">
+                {realPatternThemes.map((pattern) => (
+                  <div className="pattern-item" key={pattern.title}>
+                    <strong>{pattern.title}</strong>
+                    <span>{pattern.detail}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
+
           <label className="field">
             <span>Domain</span>
             <select value={domain} onChange={(event) => setDomain(event.target.value)}>
@@ -367,6 +416,20 @@ export default function App() {
             <p>All entries are local and static. No live ingestion is used.</p>
           </div>
 
+          {isRealMode ? (
+            <section className="sidebar-section" aria-label="Operational takeaways">
+              <div className="section-heading">
+                <h3>Operational Takeaways</h3>
+                <p>What should LambdaOpsLab pay attention to?</p>
+              </div>
+              <ul className="takeaway-list">
+                {operationalTakeaways.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
           <section className="review-note" aria-label="Human-in-the-loop review">
             <h3>Human-in-the-loop review</h3>
             <p>
@@ -374,6 +437,27 @@ export default function App() {
               archived, or promoted as project candidates.
             </p>
           </section>
+
+          {isRealMode ? (
+            <section className="sidebar-section" aria-label="Project candidate signals">
+              <div className="section-heading">
+                <h3>Project Candidate Signals</h3>
+                <p>Signals promoted to possible future projects.</p>
+              </div>
+              {projectCandidateSignals.length > 0 ? (
+                <div className="candidate-list">
+                  {projectCandidateSignals.map((signal) => (
+                    <div className="candidate-item" key={signal.id}>
+                      <strong>{signal.title}</strong>
+                      <span>{signal.domain} · {signal.action}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="empty-state">No project-candidate signals in the current view.</p>
+              )}
+            </section>
+          ) : null}
         </aside>
 
         <section className="signal-list panel" aria-label="Signal cards">
