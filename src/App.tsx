@@ -13,6 +13,7 @@ interface DisplaySignal {
   title: string;
   domain: string;
   action: string;
+  status: string;
   reviewBadge: string;
   summary: string;
   source: string;
@@ -20,7 +21,6 @@ interface DisplaySignal {
   sourceUrl?: string;
   publishedAt?: string;
   confidence: string;
-  statusLabel?: string;
   footerLabel: string;
   detailBlocks: Array<{ heading: string; body: string }>;
   tags?: string[];
@@ -50,6 +50,8 @@ const demoActions: Array<Action | 'All'> = [
   'Prepare briefing'
 ];
 
+const demoStatuses: Array<Signal['status'] | 'All'> = ['All', 'Verified', 'Emerging', 'Sustained'];
+
 const realDomains: Array<RadarSignal['domain'] | 'All'> = [
   'All',
   'ai-first',
@@ -73,6 +75,15 @@ const realActions: Array<RadarSignal['recommendedAction'] | 'All'> = [
   'project-candidate'
 ];
 
+const realStatuses: Array<RadarSignal['status'] | 'All'> = [
+  'All',
+  'candidate',
+  'review',
+  'approved',
+  'archived',
+  'project-candidate'
+];
+
 function domainCount(items: DisplaySignal[], domain: string) {
   return items.filter((item) => item.domain === domain).length;
 }
@@ -83,11 +94,12 @@ function normalizeDemoSignal(signal: Signal): DisplaySignal {
     title: signal.headline,
     domain: signal.domain,
     action: signal.action,
+    status: signal.status,
     reviewBadge: signal.reviewState,
     summary: signal.summary,
     source: 'Profile A demo dataset',
     confidence: signal.confidence,
-    statusLabel: signal.status,
+    publishedAt: signal.horizon,
     footerLabel: signal.horizon,
     detailBlocks: [
       { heading: 'Operational implication', body: signal.implication },
@@ -103,6 +115,7 @@ function normalizeRealSignal(signal: RadarSignal): DisplaySignal {
     title: signal.title,
     domain: signal.domain,
     action: signal.recommendedAction,
+    status: signal.status,
     reviewBadge: signal.status,
     summary: signal.summary,
     source: signal.source,
@@ -144,19 +157,25 @@ function resolveActions(mode: SignalMode) {
   return mode === 'demo' ? demoActions : realActions;
 }
 
+function resolveStatuses(mode: SignalMode) {
+  return mode === 'demo' ? demoStatuses : realStatuses;
+}
+
 function isSelectableDomain(value: string): value is Domain {
   return value !== 'All';
 }
 
 export default function App() {
-  const [mode, setMode] = useState<SignalMode>('demo');
+  const [mode, setMode] = useState<SignalMode>('real');
   const [domain, setDomain] = useState<FilterValue>('All');
   const [action, setAction] = useState<FilterValue>('All');
-  const [selectedId, setSelectedId] = useState(demoSignals[0]?.id ?? realSignals[0]?.id ?? '');
+  const [status, setStatus] = useState<FilterValue>('All');
+  const [selectedId, setSelectedId] = useState(realSignals[0]?.id ?? demoSignals[0]?.id ?? '');
 
   useEffect(() => {
     setDomain('All');
     setAction('All');
+    setStatus('All');
     setSelectedId((mode === 'demo' ? demoSignals[0]?.id : realSignals[0]?.id) ?? '');
   }, [mode]);
 
@@ -167,9 +186,10 @@ export default function App() {
       availableSignals.filter((signal) => {
         const matchesDomain = domain === 'All' || signal.domain === domain;
         const matchesAction = action === 'All' || signal.action === action;
-        return matchesDomain && matchesAction;
+        const matchesStatus = status === 'All' || signal.status === status;
+        return matchesDomain && matchesAction && matchesStatus;
       }),
-    [availableSignals, action, domain]
+    [availableSignals, action, domain, status]
   );
 
   const selectedSignal = useMemo(
@@ -179,34 +199,65 @@ export default function App() {
 
   const domains = resolveDomains(mode);
   const actions = resolveActions(mode);
+  const statuses = resolveStatuses(mode);
   const signalCountLabel = mode === 'demo' ? 'demo signals' : 'real signals';
+  const isRealMode = mode === 'real';
+  const detailDateLabel = isRealMode ? 'Published date' : 'Planning horizon';
+  const realApprovedCount = realSignals.filter((signal) => signal.status === 'approved').length;
+  const realProjectCandidateCount = realSignals.filter(
+    (signal) => signal.status === 'project-candidate'
+  ).length;
 
   return (
-    <main className="app-shell">
+    <main className={`app-shell mode-${mode}`}>
+      <section className={`operational-banner ${isRealMode ? 'is-operational' : 'is-experimental'}`}>
+        <strong>Profile A operates on manually reviewed strategic signals.</strong>
+        <span>{isRealMode ? 'Operational mode' : 'Demo mode'}</span>
+      </section>
+
       <section className="hero">
         <div>
           <p className="eyebrow">Big League Ops Radar</p>
           <h1>Profile A strategic intelligence dashboard</h1>
           <p className="lede">
-            Static demo view for high-signal operational context across AI-first operations,
+            Static view for high-signal operational context across AI-first operations,
             government, defense, cloud, chips, data centers, energy, regulation, agents,
             operations, and governance.
           </p>
         </div>
 
         <div className="hero-meta">
-          <div>
-            <span>Coverage</span>
-            <strong>{availableSignals.length} {signalCountLabel}</strong>
-          </div>
-          <div>
-            <span>View</span>
-            <strong>{mode === 'demo' ? 'Demo Signals' : 'Real Signals'}</strong>
-          </div>
-          <div>
-            <span>Deployment</span>
-            <strong>Static Vite app</strong>
-          </div>
+          {isRealMode ? (
+            <>
+              <div>
+                <span>Real signals</span>
+                <strong>{availableSignals.length}</strong>
+              </div>
+              <div>
+                <span>Approved</span>
+                <strong>{realApprovedCount}</strong>
+              </div>
+              <div>
+                <span>Project candidates</span>
+                <strong>{realProjectCandidateCount}</strong>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <span>Coverage</span>
+                <strong>{availableSignals.length} {signalCountLabel}</strong>
+              </div>
+              <div>
+                <span>View</span>
+                <strong>Demo Signals</strong>
+              </div>
+              <div>
+                <span>Deployment</span>
+                <strong>Static Vite app</strong>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -258,6 +309,17 @@ export default function App() {
             <span>Domain</span>
             <select value={domain} onChange={(event) => setDomain(event.target.value)}>
               {domains.map((item) => (
+                <option key={item} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="field">
+            <span>Status</span>
+            <select value={status} onChange={(event) => setStatus(event.target.value)}>
+              {statuses.map((item) => (
                 <option key={item} value={item}>
                   {item}
                 </option>
@@ -318,15 +380,7 @@ export default function App() {
                   <h3>{signal.title}</h3>
                   <p>{signal.summary}</p>
                   <div className="signal-meta-line">
-                    {mode === 'demo' ? (
-                      <span className={`status status-${signal.statusLabel?.toLowerCase() ?? ''}`}>
-                        {signal.statusLabel}
-                      </span>
-                    ) : (
-                      <span>
-                        {formatSourceMeta(signal)}
-                      </span>
-                    )}
+                    <span>{mode === 'demo' ? signal.status : formatSourceMeta(signal)}</span>
                   </div>
                   <div className="card-footer">
                     <span>{signal.action}</span>
@@ -358,13 +412,7 @@ export default function App() {
               <p className="detail-summary">{selectedSignal.summary}</p>
 
               <div className="signal-meta-line">
-                {mode === 'demo' ? (
-                  <span className={`status status-${selectedSignal.statusLabel?.toLowerCase() ?? ''}`}>
-                    {selectedSignal.statusLabel}
-                  </span>
-                ) : (
-                  <span>{formatSourceMeta(selectedSignal)}</span>
-                )}
+                <span>{mode === 'demo' ? selectedSignal.status : formatSourceMeta(selectedSignal)}</span>
               </div>
 
               <dl className="detail-grid">
@@ -379,6 +427,14 @@ export default function App() {
                 <div>
                   <dt>Source</dt>
                   <dd>{selectedSignal.source}</dd>
+                </div>
+                <div>
+                  <dt>Status</dt>
+                  <dd>{selectedSignal.status}</dd>
+                </div>
+                <div>
+                  <dt>{detailDateLabel}</dt>
+                  <dd>{selectedSignal.publishedAt ?? 'Demo-only'}</dd>
                 </div>
                 {selectedSignal.sourceUrl ? (
                   <div>

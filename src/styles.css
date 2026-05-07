@@ -49,6 +49,36 @@ button {
   padding: 32px 0 40px;
 }
 
+.operational-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+}
+
+.operational-banner strong {
+  font-size: 0.96rem;
+}
+
+.operational-banner span {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.mode-demo .operational-banner {
+  background: rgba(114, 214, 255, 0.08);
+  border-color: rgba(114, 214, 255, 0.22);
+}
+
+.mode-real .operational-banner {
+  background: rgba(126, 224, 160, 0.06);
+  border-color: rgba(126, 224, 160, 0.2);
+}
+
 .hero {
   display: grid;
   grid-template-columns: minmax(0, 1.8fr) minmax(280px, 0.9fr);
@@ -233,6 +263,11 @@ select {
   border-color: rgba(114, 214, 255, 0.4);
 }
 
+.mode-real .mode-toggle button.is-active {
+  background: rgba(126, 224, 160, 0.1);
+  border-color: rgba(126, 224, 160, 0.35);
+}
+
 .mode-note {
   margin-top: 14px;
   padding: 14px;
@@ -249,6 +284,20 @@ select {
   margin: 8px 0 0;
   color: var(--muted);
   line-height: 1.6;
+}
+
+.mode-demo .panel,
+.mode-demo .hero-meta > div,
+.mode-demo .metric-card {
+  background: rgba(12, 24, 44, 0.86);
+  border-color: rgba(114, 214, 255, 0.16);
+}
+
+.mode-real .panel,
+.mode-real .hero-meta > div,
+.mode-real .metric-card {
+  background: rgba(10, 18, 28, 0.9);
+  border-color: rgba(255, 255, 255, 0.09);
 }
 
 .cards-grid {
@@ -277,6 +326,13 @@ select {
   border-color: rgba(114, 214, 255, 0.5);
   background: rgba(114, 214, 255, 0.08);
   outline: none;
+}
+
+.mode-real .signal-card:hover,
+.mode-real .signal-card:focus-visible,
+.mode-real .signal-card.is-active {
+  border-color: rgba(126, 224, 160, 0.34);
+  background: rgba(126, 224, 160, 0.06);
 }
 
 .card-topline,
