@@ -1,6 +1,7 @@
 # Big League Ops Radar
 
-Live demo: `https://your-demo-url-here`
+Live demo:
+https://big-league-ops-radar.vercel.app/
 
 Big League Ops Radar is a static Vite + React + TypeScript portfolio demo for **Profile A** only. It presents a strategic intelligence dashboard with a controlled signal model, local filters, and a detail panel designed to communicate product judgment and operational clarity.
 
