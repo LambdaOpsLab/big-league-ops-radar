@@ -245,6 +245,25 @@ export default function App() {
   );
   const selectedPattern =
     strategicPatterns.find((pattern) => pattern.id === selectedPatternId) ?? strategicPatterns[0] ?? null;
+  const approvedSignals = realSignals.filter((signal) => signal.status === 'approved');
+  const projectCandidateSignalsAll = realSignals.filter((signal) => signal.status === 'project-candidate');
+  const strategicReport = `# Strategic Report
+
+- Signals reviewed: ${realSignals.length}
+- Approved signals: ${approvedSignals.length}
+- Project-candidate signals: ${projectCandidateSignalsAll.length}
+- Strategic patterns observed: ${strategicPatterns.map((pattern) => pattern.title).join('; ')}
+- Operational takeaways for LambdaOpsLab:
+  - ${operationalTakeaways.join('\n  - ')}
+- Risks / uncertainties:
+  - Manual curation remains selective
+  - Source coverage is public and partial
+  - Review state is still maintained manually
+- Recommended next focus:
+  - Maintain the weekly review cadence
+  - Promote only signals with evidence and decision trails
+  - Track sovereign infrastructure and government adoption as the primary pattern family
+`;
 
   return (
     <main className={`app-shell mode-${mode}`}>
@@ -481,6 +500,18 @@ export default function App() {
               ))}
             </div>
           </section>
+
+          {isRealMode ? (
+            <section className="sidebar-section" aria-label="Strategic report">
+              <div className="section-heading">
+                <h3>Strategic Report</h3>
+                <p>
+                  The strategic report converts reviewed signals and patterns into actionable operational intelligence.
+                </p>
+              </div>
+              <pre className="report-copy">{strategicReport}</pre>
+            </section>
+          ) : null}
         </aside>
 
         <section className="signal-list panel" aria-label="Signal cards">

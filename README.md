@@ -10,6 +10,7 @@ It now also includes real signals, evidence/source verification, and a decision 
 CP14 adds a real-use mode with more manually reviewed signals, pattern observations, operational takeaways, and project-candidate tracking.
 CP15 adds a weekly operational review template for recurring strategic observation.
 CP16 adds strategic pattern memory to capture repeated reviewed themes over time.
+CP17 adds a strategic report section and Markdown template for copy-friendly operational summaries.
 
 ## Project purpose
 
@@ -29,6 +30,7 @@ The project demonstrates how to turn complex operating signals into a clear, rec
 - A detail panel for the selected signal
 - Filters by domain and recommended action
 - Source verification and decision trail support for real signals
+- Strategic report export in a copy-friendly Markdown format
 - A responsive layout suitable for portfolio review and Vercel deployment
 
 ## Local development
